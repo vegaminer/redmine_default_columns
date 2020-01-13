@@ -24,6 +24,7 @@ unless Redmine::Plugin.registered_plugins.keys.include?(:redmine_default_columns
   end
 end
 
-ActionDispatch::Callbacks.to_prepare do
+# ActionDispatch::Callbacks.to_prepare do
+ActiveSupport::Reloader.to_prepare do
   require 'query_per_project_patches'
 end

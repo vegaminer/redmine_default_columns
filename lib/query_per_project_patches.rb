@@ -9,7 +9,9 @@ module QueryPerProject
         base.class_eval do
           unloadable # Send unloadable so it will not be unloaded in development
 
-          alias_method_chain :retrieve_query, :default_query
+          # alias_method_chain :retrieve_query, :default_query
+          alias_method :retrieve_query_with_default_query, :retrieve_query_without_default_query
+	  alias_method :retrieve_query_without_default_query, :retrieve_query_with_default_query
         end
 
       end
@@ -18,6 +20,9 @@ module QueryPerProject
       end
 
       module InstanceMethods
+        def retrieve_query_without_default_query(klass=IssueQuery, use_session=true)
+	  default_query(klass, use_session)	
+	end
 
         def retrieve_query_with_default_query(klass=IssueQuery, use_session=true)
           if use_session
