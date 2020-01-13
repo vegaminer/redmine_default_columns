@@ -3,7 +3,8 @@ require 'query_per_project_constants'
 class QueryPerProjectController < ApplicationController
   unloadable
 
-  before_filter :require_login
+  #before_filter :require_login
+  before_action :require_login
 
   def redirect_to_user_query
     q = Query.first(:conditions => ["name = ? AND user_id = ?", QPP_Constants::settings['my_home_query_name'],User.current.id])
